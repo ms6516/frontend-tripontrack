@@ -26,8 +26,8 @@ export default function HeroSection() {
       <div className="relative z-10 h-full flex items-center pl-8 md:pl-24">
         <div className="max-w-2xl">
           <SplitText
-            text="Explore the World Smartly"
-            className="text-5xl md:text-7xl font-bold font-poppins text-white"
+            text="Explore the World    Smartly"
+            className="text-5xl md:text-6xl font-bold font-syne text-white"
             splitType="chars"
             delay={100}
             duration={0.6}
