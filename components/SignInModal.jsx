@@ -14,48 +14,70 @@ export default function SignInModal({ onClose }) {
     return '';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
       return;
     }
+  
     setError('');
-    console.log({ email, password, rememberMe });
-    onClose(); // ✅ Close the modal
+  
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/users/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+  
+      const data = await res.json();
+  
+      if (!res.ok) {
+        setError(data.detail || "Something went wrong");
+        return;
+      }
+  
+      console.log("✅ Signed in:", data);
+      onClose(); // Close modal
+    } catch (err) {
+      setError("Server error. Please try again.");
+    }
   };
+  
   
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 text-black">
       <div className="bg-white rounded-lg p-8 w-[90%] max-w-md relative">
         <button className="absolute top-3 right-3 text-black hover:text-gray-700" onClick={onClose}>✕</button>
-        <h2 className="text-2xl font-bold mb-4">Sign In</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
 
         {error && <p className="text-red-600 mb-3">{error}</p>}
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block mb-1 font-medium">Email</label>
+            <label className="block mb-1 font-medium text-sm">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="you@example.com"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="muss@example.com"
               required
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Password</label>
+            <label className="block mb-1 font-medium text-sm">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="••••••••"
                 required
               />

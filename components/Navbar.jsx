@@ -18,7 +18,7 @@ export default function Navbar() {
           <div className="text-white text-2xl font-bold font-syne">TripOnTrack</div>
 
           {/* Center Navigation */}
-          <div className="hidden md:flex justify-center absolute left-1 transform -translate-x-1/2 w-full">
+          <div className="hidden md:flex justify-center absolute left-1/2 transform -translate-x-1/2 w-full">
             <ul className="flex gap-10 text-white text-lg font-medium">
               <li><a href="#">Home</a></li>
               <li><a href="#">Destinations</a></li>

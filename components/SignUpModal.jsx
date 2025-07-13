@@ -17,59 +17,83 @@ export default function SignUpModal({ onClose }) {
     return '';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
       return;
     }
+  
     setError('');
-    console.log({ name, email, password }); // You can replace this with API call
-    onClose(); 
+  
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/users/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log("✅ Signup successful", data);
+        onClose(); // Close modal
+      } else {
+        console.error("❌ Signup error:", data);
+        setError(data.detail || "Signup failed");
+      }
+    } catch (error) {
+      console.error("❌ Network error:", error);
+      setError("Could not connect to the server");
+    }
   };
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 text-black">
       <div className="bg-white rounded-lg p-8 w-[90%] max-w-md relative">
         <button className="absolute top-3 right-3 text-black hover:text-gray-700" onClick={onClose}>✕</button>
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold text-center mb-4">Sign Up</h2>
 
         {error && <p className="text-red-600 mb-3">{error}</p>}
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block mb-1 font-medium">Full Name</label>
+            <label className="block mb-1 font-medium text-sm">Full Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="John Doe"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="muss"
               required
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Email</label>
+            <label className="block mb-1 font-medium text-sm">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="you@example.com"
+              className="w-full px-4 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="muss@example.com"
               required
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Password</label>
+            <label className="block mb-1 font-medium text-sm">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="••••••••"
                 required
               />
@@ -80,12 +104,12 @@ export default function SignUpModal({ onClose }) {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Confirm Password</label>
+            <label className="block mb-1 font-medium text-sm">Confirm Password</label>
             <input
               type={showPassword ? 'text' : 'password'}
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="••••••••"
               required
             />
