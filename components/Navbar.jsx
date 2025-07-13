@@ -2,9 +2,13 @@
 import { useState } from 'react';
 import ShinyText from './ShinyText';
 import SignInModal from './SignInModal'; // ✅ import modal component
+import SignUpModal from './SignUpModal';
 
 export default function Navbar() {
-  const [showModal, setShowModal] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  // const [rememberMe, setRememberMe] = useState(false);
+
 
   return (
     <>
@@ -27,12 +31,14 @@ export default function Navbar() {
           {/* Buttons */}
           <div className="flex gap-4">
             <button
-              onClick={() => setShowModal(true)}
+              onClick={() => setShowSignIn(true)}
               className="text-white border border-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition"
             >
               <ShinyText text="Sign In" speed={2.5} />
             </button>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition">
+            <button 
+            onClick={() => setShowSignUp(true)}
+             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition">
               <ShinyText text="Sign Up" speed={2.5} />
             </button>
           </div>
@@ -40,7 +46,8 @@ export default function Navbar() {
       </nav>
 
       {/* Sign In Modal */}
-      {showModal && <SignInModal onClose={() => setShowModal(false)} />}
+      {showSignIn && <SignInModal onClose={() => setShowSignIn(false)} />}
+      {showSignUp && <SignUpModal onClose={() => setShowSignUp(false)} />}
     </>
   );
 }
