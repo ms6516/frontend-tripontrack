@@ -1,8 +1,10 @@
+// components/DestinationCards.jsx
+
 import Image from 'next/image';
 
 export default function DestinationCards({ name, location, image }) {
   return (
-    <div className="rounded-2xl overflow-hidden shadow-md bg-white hover:shadow-xl transition-all duration-300 cursor-pointer group">
+    <div className="min-w-[250px] max-w-[250px] flex-shrink-0 rounded-2xl overflow-hidden shadow-md bg-white hover:shadow-xl transition-all duration-300 cursor-pointer group">
       <div className="relative h-[250px] w-full overflow-hidden">
         <Image
           src={image}
