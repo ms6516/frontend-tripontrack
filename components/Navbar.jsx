@@ -3,6 +3,8 @@ import { useState } from 'react';
 import ShinyText from './ShinyText';
 import SignInModal from './SignInModal'; // ✅ import modal component
 import SignUpModal from './SignUpModal';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [showSignIn, setShowSignIn] = useState(false);
@@ -15,7 +17,16 @@ export default function Navbar() {
       <nav className="absolute top-0 left-0 w-full z-50 px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between relative">
           {/* Logo */}
-          <div className="text-white text-2xl font-bold font-syne">TripOnTrack</div>
+          <Link href="/">
+        <Image
+          src="/logo.png" // Replace with your actual logo path
+          alt="Company Logo"
+          width={180} // Adjust width as needed
+          height={80}  // Adjust height as needed
+          className="cursor-pointer"
+          color='white'
+        />
+      </Link>
 
           {/* Center Navigation */}
           <div className="hidden md:flex justify-center absolute left-1/2 transform -translate-x-1/2 w-full">

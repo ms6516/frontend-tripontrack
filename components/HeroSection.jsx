@@ -57,7 +57,7 @@ export default function HeroSection() {
       </div>
 
       {/* Social Icons on Right Side */}
-      <div className="absolute bottom-1/2 right-8 transform -translate-y-1/2 z-10 flex flex-col gap-4">
+      <div className="absolute bottom-1/4 right-8 transform -translate-y-1/2 z-10 flex flex-col gap-4">
   {/* Instagram */}
   <a href="https://www.instagram.com/muss2113/" target="_blank" rel="noopener noreferrer">
     <div className="w-10 h-10 rounded-full border border-white flex items-center justify-center hover:bg-white/20 transition">

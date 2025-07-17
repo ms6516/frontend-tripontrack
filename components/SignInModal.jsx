@@ -1,5 +1,7 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
+
 
 export default function SignInModal({ onClose }) {
   const [email, setEmail] = useState('');
@@ -52,6 +54,15 @@ export default function SignInModal({ onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 text-black">
       <div className="bg-white rounded-lg p-8 w-[90%] max-w-md relative">
+       {/* Logo */}
+       <div className="flex justify-center mb-6">
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={200}
+            height={50}
+          />
+        </div>
         <button className="absolute top-3 right-3 text-black hover:text-gray-700" onClick={onClose}>✕</button>
         <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
 
